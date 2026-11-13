@@ -1,0 +1,97 @@
+{
+  "tracking": {
+    "title": "Get tracking you can trust.",
+    "intro": "Many charities end up with several Google Analytics properties, tag containers nobody has touched in years and agencies measuring their own results. Then nobody can say which campaigns raise money. Andrew audits the setup, removes what's dead or duplicated and sets up conversion tracking that works.",
+    "story": {
+      "client": "Oxfam Ireland",
+      "text": "Oxfam Ireland had GA4 properties for its main site, its donation platform, its Shopify store and old test sites, plus Tag Manager containers that hadn't been updated in about five years. Andrew audited the lot, flagged what was outdated, duplicated or inactive, recommended a simpler structure and set up the GA4 conversions that matter for campaigns."
+    },
+    "tiers": [
+      {
+        "name": "Entry",
+        "price": "€650",
+        "unit": "one-off",
+        "featured": false,
+        "includes": [
+          "GA4 conversion tracking setup",
+          "Tracking for forms, calls, bookings and purchases",
+          "Google Ads or Meta conversion tracking",
+          "Basic Google Tag Manager setup",
+          "Cookie consent and tag configuration",
+          "Testing and verification"
+        ],
+        "deliverable": "A tracking report"
+      },
+      {
+        "name": "Advanced",
+        "price": "€1,250",
+        "unit": "one-off",
+        "featured": true,
+        "includes": [
+          "Server-side and client-side tracking",
+          "GA4, Google Ads, Meta and other social channels",
+          "Advanced Tag Manager event setup",
+          "Form, call, booking and purchase tracking",
+          "Qualified lead tracking",
+          "Enhanced conversions where they apply",
+          "Consent-aware setup",
+          "Cross-platform conversion analysis",
+          "Offline conversion import where it applies",
+          "Testing, troubleshooting and QA"
+        ],
+        "deliverable": "A custom dashboard, documentation and a handover"
+      }
+    ]
+  },
+  "campaign": {
+    "title": "Campaign management and planning",
+    "price": "From €1,800",
+    "unit": "per campaign",
+    "intro": "For a single appeal, challenge event or recruitment drive.",
+    "includes": [
+      "Strategy and planning: objectives, audience, budget and targeting",
+      "Setup: accounts, campaigns, ad sets, keywords and audiences",
+      "Ad copy, formats and calls to action",
+      "Ongoing changes to budget, targeting, bids and ads",
+      "Conversion tracking, performance monitoring and recommendations",
+      "Email follow-up with donors and supporters"
+    ],
+    "deliverable": "A report on revenue, cost per acquisition and the other numbers that matter"
+  },
+  "management": {
+    "title": "Monthly ads management",
+    "intro": "Andrew runs your Google Ads or Facebook and Instagram ads month to month. The longer the term, the lower the monthly fee.",
+    "channels": ["Google Ads", "Facebook & Instagram Ads"],
+    "terms": [
+      { "term": "3 months", "price": "€650" },
+      { "term": "6 months", "price": "€575" },
+      { "term": "9 months +", "price": "€525" }
+    ],
+    "includes": [
+      "Campaign management and optimisation",
+      "A monthly report",
+      "Your logins at the end, plus up to three optional training sessions"
+    ]
+  },
+  "process": [
+    { "title": "Talk", "text": "A free 30-minute call about your goals." },
+    { "title": "Audit", "text": "Andrew checks your accounts and tracking." },
+    { "title": "Set up", "text": "Tracking and campaigns built in your name." },
+    { "title": "Run", "text": "Campaigns managed and adjusted each month." },
+    { "title": "Hand over", "text": "You keep the logins and the know-how." }
+  ],
+  "keys": [
+    { "title": "Accounts in your name", "text": "Every ad account, analytics property and tag is set up under your organisation, never ours." },
+    { "title": "One set of numbers", "text": "Your tracking is managed so it doesn't get tangled again when staff or agencies change." },
+    { "title": "A proper handover", "text": "When the work ends you get the logins and, if you want it, training for your team." }
+  ],
+  "faq": [
+    { "q": "Is ad spend included in the price?", "a": "No. You pay Google or Meta directly for your ads. Andrew's fee covers the work of planning, running and reporting on them." },
+    { "q": "Do prices include VAT?", "a": "No, all prices are plus VAT." },
+    { "q": "Who owns the ad and analytics accounts?", "a": "You do. Everything is set up in your organisation's name, and you keep the logins when the work ends." },
+    { "q": "Who will I actually work with?", "a": "Andrew, directly. There are no account managers or juniors." },
+    { "q": "Can you manage our Google Ad Grant?", "a": "Yes. Andrew manages both paid Google Ads and Google Ad Grants." },
+    { "q": "Do you only work with charities?", "a": "Mostly charities and non-profits, but also social enterprises and purpose-led businesses." },
+    { "q": "Can you train our team instead?", "a": "Yes. Andrew runs half-day, hands-on workshops. See the training page." }
+  ]
+}

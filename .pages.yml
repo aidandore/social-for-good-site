@@ -1,0 +1,99 @@
+# Pages CMS config — https://pagescms.org/docs
+# Andrew logs in at app.pagescms.org with GitHub. Every save commits to the repo and Netlify redeploys.
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: posts
+    label: Insights (blog)
+    type: collection
+    path: src/content/posts
+    view:
+      fields: [title, date, draft]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true }
+      - { name: tag, label: Topic, type: string, required: true, description: "e.g. Google Ad Grant, Meta Ads, Strategy" }
+      - { name: summary, label: Summary, type: text, required: true, description: "1–2 sentences shown on the listing" }
+      - { name: image, label: Card image (shown on the Insights list), type: image }
+      - { name: draft, label: Draft (hidden from site), type: boolean, default: true }
+      - { name: body, label: Post, type: rich-text }
+
+  - name: work
+    label: Case studies
+    type: collection
+    path: src/content/work
+    view:
+      fields: [client, title, draft]
+    fields:
+      - { name: title, label: Campaign / project name, type: string, required: true }
+      - { name: client, label: Client, type: string, required: true }
+      - { name: tag, label: Tag, type: string, required: true, description: "e.g. Meta Campaign, Google Grant, Digital Strategy" }
+      - { name: summary, label: Summary, type: text, required: true }
+      - name: stats
+        label: Headline numbers
+        type: object
+        list: { max: 3 }
+        fields:
+          - { name: value, label: Number, type: string, description: "e.g. €30k+, 414%" }
+          - { name: label, label: Label, type: string, description: "e.g. raised online" }
+      - { name: image, label: Main image, type: image }
+      - { name: imageAlt, label: Main image description (for screen readers), type: string }
+      - name: gallery
+        label: Campaign creative (ads, photos)
+        type: object
+        list: true
+        fields:
+          - { name: src, label: Image, type: image }
+          - { name: alt, label: Description, type: string }
+      - { name: quote, label: Client quote, type: text }
+      - { name: quoteBy, label: Quote by, type: string, description: "Name · Role, Organisation" }
+      - { name: order, label: Order (1 = first), type: number, default: 99 }
+      - { name: draft, label: Draft (hidden from site), type: boolean, default: false }
+      - { name: body, label: Case study, type: rich-text }
+
+  - name: testimonials
+    label: Testimonials
+    type: collection
+    path: src/content/testimonials
+    view:
+      fields: [name, organisation, kind]
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - { name: role, label: Role, type: string }
+      - { name: organisation, label: Organisation, type: string, required: true }
+      - { name: photo, label: Photo (square), type: image }
+      - name: kind
+        label: Where it shows
+        type: select
+        options: { values: [client, training] }
+        default: client
+      - { name: featured, label: Show on home page, type: boolean, default: false }
+      - { name: order, label: Order, type: number, default: 99 }
+      - { name: body, label: Quote, type: text }
+
+  - name: clients
+    label: Client logos
+    type: collection
+    path: src/content/clients
+    view:
+      fields: [name, order]
+    fields:
+      - { name: name, label: Organisation, type: string, required: true }
+      - { name: url, label: Website, type: string }
+      - { name: logo, label: Logo (SVG or PNG, transparent), type: image }
+      - { name: logoHeight, label: Logo height in px (optional; default 40), type: number }
+      - { name: order, label: Order, type: number, default: 99 }
+
+  - name: settings
+    label: Contact & photo
+    type: file
+    path: src/data/settings.json
+    format: json
+    fields:
+      - { name: photo, label: Andrew's photo, type: image }
+      - { name: email, label: Email, type: string }
+      - { name: phone, label: Phone, type: string }
+      - { name: linkedin, label: LinkedIn URL, type: string }
+      - { name: bookingUrl, label: Booking link (Cal.com / Calendly embed URL), type: string }

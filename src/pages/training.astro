@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CtaStrip from '../components/CtaStrip.astro';
+import training from '../data/training.json';
+---
+<Base title="Training" description="Half-day, hands-on digital fundraising workshops for charity and non-profit teams, run by Andrew Parle.">
+  <section class="hero hero--split">
+    <div class="hero-inner">
+      <div>
+      <div class="eyebrow" style="color: var(--teal)">Training</div>
+      <h1>Train your team to do it themselves.</h1>
+      <p>{training.intro}</p>
+      <ul class="creds">
+        {training.credentials.map((c) => <li>{c}</li>)}
+      </ul>
+      <p class="partners">
+        Training is also delivered through {training.partners.map((p, i) => (
+          <>{i > 0 && ' and '}<a href={p.url} rel="noopener">{p.name}</a></>
+        ))}.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/contact/?interest=training">Ask about training &rarr;</a>
+      </div>
+      </div>
+      <figure class="hero-figure">
+        <img src="/images/training-workshop.jpg" alt="Andrew Parle at a Charities Institute Ireland workshop" width="848" height="1400" />
+        <figcaption>A Charities Institute Ireland workshop</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="topics">
+    <div class="topics-inner">
+      <div class="eyebrow">What Andrew teaches</div>
+      <h2 class="section-h2">Workshop topics</h2>
+      <div class="topic-grid topic-grid--4">
+        {training.topics.map((t) => (
+          <div class="topic"><h3>{t.title}</h3><p>{t.text}</p></div>
+        ))}
+      </div>
+      <div class="formats">
+        {training.formats.map((f) => <span>{f}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials kind="training" variant="light" eyebrow="What learners say" title="From the classroom" />
+
+  <CtaStrip title="Talk to Andrew about training for your team." />
+</Base>

@@ -1,0 +1,20 @@
+---
+const { entry, headingTag = 'h3' } = Astro.props;
+const H = headingTag;
+const { data } = entry;
+const thumb = data.image;
+---
+<a class:list={['work-card', { 'has-thumb': !!thumb }]} href={`/work/${entry.id}/`}>
+  {thumb && <img class="work-thumb" src={thumb} alt="" loading="lazy" />}
+  <span class="tag">{data.tag}</span>
+  <H>{data.title}</H>
+  <div class="client">{data.client}</div>
+  <p class="summary">{data.summary}</p>
+  {data.stats.length > 0 && (
+    <div class="stats-row">
+      {data.stats.slice(0, 2).map((s) => (
+        <div><div class="stat">{s.value}</div><div class="stat-label">{s.label}</div></div>
+      ))}
+    </div>
+  )}
+</a>

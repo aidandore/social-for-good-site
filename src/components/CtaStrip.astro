@@ -1,0 +1,10 @@
+---
+const { dark = false, title = 'Talk to us about your goals.' } = Astro.props;
+---
+<section class:list={['cta-strip', { 'cta-strip--dark': dark }]}>
+  <h2>{title}</h2>
+  <p>30 minutes. No hard sell. Just a conversation about your goals.</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="/contact/">Book a free call &rarr;</a>
+  </div>
+</section>

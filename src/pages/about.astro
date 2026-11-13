@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import AndrewPhoto from '../components/AndrewPhoto.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CtaStrip from '../components/CtaStrip.astro';
+const values = [
+  { title: 'People before platforms.', text: 'Every campaign starts with the people behind the cause.' },
+  { title: 'Honest about what works.', text: "No overselling and no jargon. The reports are clear." },
+  { title: 'Andrew, every time.', text: 'You work directly with Andrew throughout. Nothing gets passed to a junior.' },
+  { title: 'Built to last.', text: 'Your accounts stay in your name, and Andrew shares what he knows so your team can keep things going.' },
+];
+---
+<Base title="About" description="Social for Good was set up because organisations doing good deserve better digital support. Meet Andrew Parle.">
+  <section class="hero hero--sand">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Who we are</div>
+        <h1>Good causes deserve better digital support.</h1>
+        <p style="font-size:17px;line-height:1.75;color:var(--sage);margin-top:20px">
+          I set up Social for Good because organisations doing good deserve better digital support. You
+          shouldn't need a huge budget to get it, or have to hand everything over without understanding
+          what's happening.
+        </p>
+        <p style="font-size:17px;line-height:1.75;color:var(--sage);margin-top:16px">
+          I work closely with my clients, build real relationships and share what I know along the way. You
+          get the support you need, and your team builds its own skills and confidence.
+        </p>
+        <p style="font-size:15px;font-weight:700;color:var(--deep-teal);margin-top:20px">Andrew Parle, founder</p>
+      </div>
+      <AndrewPhoto quote="Built on belief. Backed by data." cite="Social for Good" />
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="values-inner">
+      <div class="eyebrow" style="color:var(--teal)">Our values</div>
+      <h2>How we work</h2>
+      <div class="values-grid">
+        {values.map((v) => <div class="value-card"><h3>{v.title}</h3><p>{v.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials featuredOnly variant="light" eyebrow="Our clients" title="In their words" />
+
+  <CtaStrip dark />
+</Base>

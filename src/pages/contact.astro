@@ -1,0 +1,95 @@
+---
+import Base from '../layouts/Base.astro';
+import settings from '../data/settings.json';
+
+// Values match the ?interest= links on the services and training pages.
+const options = [
+  { value: 'exploring', label: 'Just exploring' },
+  { value: 'tracking-entry', label: 'Conversion tracking: Entry (€650)' },
+  { value: 'tracking-advanced', label: 'Conversion tracking: Advanced (€1,250)' },
+  { value: 'campaign', label: 'Campaign management and planning' },
+  { value: 'management', label: 'Monthly ads management' },
+  { value: 'training', label: 'Training' },
+  { value: 'other', label: 'Something else' },
+];
+// Irish numbers: 086 408 2471 -> +353864082471
+const tel = settings.phone.replace(/\s/g, '').replace(/^0/, '+353');
+---
+<Base title="Contact" bodyClass="page-contact" description="Book a free 30-minute call with Andrew Parle at Social for Good.">
+  <section class="main">
+    <div class="main-inner">
+      <div>
+        <div class="eyebrow">Get in touch</div>
+        <h1>Tell Andrew about your cause.</h1>
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks/">
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="visually-hidden"><label>Leave blank <input name="bot-field" /></label></p>
+          <div class="form-group">
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" placeholder="Full name" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="f-org">Organisation</label>
+            <input id="f-org" name="organisation" type="text" placeholder="Charity, non-profit or business" autocomplete="organization" />
+          </div>
+          <div class="form-group">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" placeholder="your@email.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="f-interest">What are you interested in?</label>
+            <select id="f-interest" name="interest">
+              {options.map((o) => <option value={o.value}>{o.label}</option>)}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-msg">What would you like to achieve?</label>
+            <textarea id="f-msg" name="message" placeholder="A few lines about your fundraising and what you'd like to change"></textarea>
+          </div>
+          <button class="submit-btn" type="submit">Send &rarr;</button>
+        </form>
+      </div>
+      <div class="direct">
+        <h2>Or get in touch directly</h2>
+        {settings.phone && (
+          <div class="contact-item">
+            <div class="icon" aria-hidden="true">📞</div>
+            <div class="info"><strong>Phone</strong><span><a href={`tel:${tel}`}>{settings.phone}</a></span></div>
+          </div>
+        )}
+        <div class="contact-item">
+          <div class="icon" aria-hidden="true">✉️</div>
+          <div class="info"><strong>Email</strong><span><a href={`mailto:${settings.email}`}>{settings.email}</a></span></div>
+        </div>
+        {settings.linkedin && (
+          <div class="contact-item">
+            <div class="icon" aria-hidden="true">in</div>
+            <div class="info"><strong>LinkedIn</strong><span><a href={settings.linkedin} rel="noopener">Social for Good</a></span></div>
+          </div>
+        )}
+        {settings.bookingUrl ? (
+          <div class="booking-embed">
+            <iframe src={settings.bookingUrl} title="Book a call with Andrew" loading="lazy"></iframe>
+          </div>
+        ) : (
+          <div class="booking-fallback">
+            <h3>Book a free 30-minute call</h3>
+            <p>No hard sell. Send the form or email Andrew and he'll find a time that suits you.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+  <script>
+    // Preselect the dropdown when arriving from a button with ?interest=...
+    const interest = new URLSearchParams(location.search).get('interest');
+    const select = document.querySelector<HTMLSelectElement>('#f-interest');
+    if (interest && select && [...select.options].some((o) => o.value === interest)) select.value = interest;
+
+    // GA4 lead event (only recorded if the visitor accepted analytics cookies).
+    document.querySelector('form[name="contact"]')?.addEventListener('submit', () => {
+      const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+      w.gtag?.('event', 'generate_lead', { interest: select?.value });
+    });
+  </script>
+</Base>

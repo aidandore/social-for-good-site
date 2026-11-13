@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import settings from '../data/settings.json';
+---
+<Base title="Privacy" description="How Social for Good handles your data.">
+  <section class="hero hero--article">
+    <div class="hero-inner">
+      <div class="eyebrow" style="color: var(--teal)">Privacy</div>
+      <h1>Privacy</h1>
+    </div>
+  </section>
+  <section class="article-body">
+    <div class="article-inner prose">
+      <p>Social for Good is run by Andrew Parle in Ireland. This page explains what happens to your information when you use this website.</p>
+
+      <h2>The contact form</h2>
+      <p>When you send the contact form, we receive your name, organisation, email address, the service you picked and your message. The form is processed by our website host, Netlify, and sent to Andrew by email. We use it only to reply to you and we don't share it with anyone else or add you to a mailing list.</p>
+
+      <h2>Analytics</h2>
+      <p>If you click "Accept" on the cookie message, we use Google Analytics to count visits and see which pages people use. Google Analytics sets cookies in your browser to do this. If you click "Reject", no analytics cookies are set. You can change your choice at any time with the "Cookie settings" link at the bottom of every page.</p>
+
+      <h2>Your rights</h2>
+      <p>You can ask to see the information we hold about you, or ask us to correct or delete it. Email <a href={`mailto:${settings.email}`}>{settings.email}</a>. If you're unhappy with how we've handled your data, you can complain to the <a href="https://www.dataprotection.ie/" rel="noopener">Data Protection Commission</a>.</p>
+    </div>
+  </section>
+</Base>

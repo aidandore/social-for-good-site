@@ -1,0 +1,212 @@
+---
+// Live style guide: every token and component on one page, rendered with the real CSS.
+// Not linked from the nav, excluded from the sitemap and marked noindex.
+import Base from '../layouts/Base.astro';
+import LogoMark from '../components/LogoMark.astro';
+import AndrewPhoto from '../components/AndrewPhoto.astro';
+import WorkCard from '../components/WorkCard.astro';
+import CtaStrip from '../components/CtaStrip.astro';
+import { getCollection } from 'astro:content';
+import services from '../data/services.json';
+
+const work = (await getCollection('work', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const proof = work.find((w) => w.data.stats.length >= 3)!;
+const tier = services.tracking.tiers;
+
+const colours = [
+  { name: 'Teal', token: '--teal', hex: '#86CAC5', use: 'Accents on dark, stats, links on dark' },
+  { name: 'Deep teal', token: '--deep-teal', hex: '#1E5C56', use: 'Brand, featured cards, dark sections' },
+  { name: 'Clay', token: '--clay', hex: '#A65A3A', use: 'Primary buttons' },
+  { name: 'Clay text', token: '--clay-text', hex: '#8B3E1E', use: 'Eyebrows on light' },
+  { name: 'Sage', token: '--sage', hex: '#4A6059', use: 'Body text on light' },
+  { name: 'Sand', token: '--sand', hex: '#F4EFE8', use: 'Alternate section background' },
+  { name: 'Charcoal', token: '--charcoal', hex: '#1F1F1F', use: 'Headings, dark hero, footer' },
+  { name: 'White', token: '--white', hex: '#FFFFFF', use: 'Base background' },
+];
+---
+<Base title="Style guide" noindex>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow" style="color: var(--teal)">Internal</div>
+      <h1>Style guide</h1>
+      <p>Every colour, type style and component used on the site, rendered with the live CSS. Change <code>src/styles/global.css</code> and this page updates.</p>
+      <div class="sg-toc" role="navigation" aria-label="Sections">
+        {['Colours', 'Type', 'Buttons', 'Tags', 'Cards', 'Pricing', 'Sections', 'Forms', 'Brand'].map((s) => <a href={`#sg-${s.toLowerCase()}`}>{s}</a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sg" id="sg-colours">
+    <h2 class="sg-h">Colours</h2>
+    <div class="sg-swatches">
+      {colours.map((c) => (
+        <div class="sg-swatch">
+          <div class="sg-chip" style={`background: var(${c.token})`}></div>
+          <strong>{c.name}</strong>
+          <code>{c.token} · {c.hex}</code>
+          <span>{c.use}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="sg sg--sand" id="sg-type">
+    <h2 class="sg-h">Type</h2>
+    <p class="sg-note">DM Sans throughout (400, 500, 700, 800, 900).</p>
+    <div class="sg-type">
+      <div><code>Home hero h1 · 900 · clamp(48–88px)</code><div class="hero hero--home sg-dark"><h1 style="margin:0">Good causes deserve <span>great digital.</span></h1></div></div>
+      <div><code>Page hero h1 · 900 · clamp(36–64px)</code><div class="hero sg-dark" style="padding:24px"><h1 style="margin:0">Clear prices. Your accounts.</h1></div></div>
+      <div><code>Section h2 · 800 · clamp(28–44px)</code><h2 class="section-h2" style="margin:0">Fix it. Run it. Learn it.</h2></div>
+      <div><code>Card h3 · 700–800 · 20–22px</code><h3 style="font-size:22px;font-weight:800">Conversion tracking</h3></div>
+      <div><code>Eyebrow · 700 · 11px · uppercase</code><div class="eyebrow">Fix · Conversion tracking</div></div>
+      <div><code>Intro · 17px · sage</code><p class="section-intro" style="margin:0">Start with whichever one you need.</p></div>
+      <div><code>Body (prose) · 17px · line-height 1.8</code><div class="prose"><p>Down Syndrome Ireland needed more registrations for Ice Cream Funday. <strong>Bold text</strong> and <a href="#">a link</a>.</p></div></div>
+      <div><code>Small / note · 12–13px</code><p style="font-size:13px;color:var(--sage)">30 minutes. No hard sell. Just a conversation about your goals.</p></div>
+    </div>
+  </section>
+
+  <section class="sg" id="sg-buttons">
+    <h2 class="sg-h">Buttons</h2>
+    <div class="sg-row">
+      <a class="btn btn-primary" href="#">Primary (clay) &rarr;</a>
+      <a class="btn btn-ghost-dark" href="#">Ghost dark</a>
+      <a class="btn btn-teal" href="#">Teal</a>
+      <a class="btn btn-light" href="#">Light teal</a>
+      <button class="submit-btn" style="width:auto;padding:14px 28px">Form submit &rarr;</button>
+    </div>
+    <div class="sg-row sg-dark" style="margin-top:16px">
+      <a class="btn btn-primary" href="#">Primary on dark &rarr;</a>
+      <a class="btn btn-ghost" href="#">Ghost (on dark)</a>
+      <a class="btn btn-light" href="#">Light teal on dark</a>
+    </div>
+  </section>
+
+  <section class="sg sg--sand" id="sg-tags">
+    <h2 class="sg-h">Tags, labels and stats</h2>
+    <div class="sg-row">
+      <span class="tag">Meta &amp; Google Ads</span>
+      <span class="news-tag" style="margin:0">Insights tag</span>
+      <span class="clients-label">Proud to work with</span>
+      <span class="door-label" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-text)">Fix · from €650</span>
+    </div>
+    <div class="formats"><span>Half-day workshops</span><span>Face to face</span><span>Groups of around 15</span></div>
+  </section>
+
+  <section class="sg" id="sg-cards">
+    <h2 class="sg-h">Cards</h2>
+    <h3 class="sg-sub">Door cards (home)</h3>
+    <div class="door-grid" style="margin-top:16px;background:var(--sand);padding:24px;border-radius:16px">
+      <a class="door" href="#"><span class="door-label">Fix · from €650</span><h3>Conversion tracking</h3><p>Standard door card on sand.</p><span class="door-link">See tracking &rarr;</span></a>
+      <a class="door featured" href="#"><span class="door-label">Run</span><h3>Featured door</h3><p>Deep teal featured variant.</p><span class="door-link">See prices &rarr;</span></a>
+    </div>
+    <h3 class="sg-sub">Work card and hero proof</h3>
+    <div class="sg-2col">
+      <WorkCard entry={work[0]} />
+      <div class="sg-dark" style="padding:24px;border-radius:16px">
+        <a class="hero-proof" href="#">
+          <span class="tag">{proof.data.tag}</span>
+          <div class="hero-proof-stats">{proof.data.stats.map((s) => <div><strong>{s.value}</strong><span>{s.label}</span></div>)}</div>
+          <p>{proof.data.title} &middot; {proof.data.client}</p>
+        </a>
+      </div>
+    </div>
+    <h3 class="sg-sub">Testimonials</h3>
+    <div class="sg-2col">
+      <div class="testimonials" style="padding:24px;border-radius:16px"><div class="test-card"><p>&ldquo;Dark testimonial card, used on Home.&rdquo;</p><cite>Name &middot; Role, Organisation</cite></div></div>
+      <div class="clients-section" style="padding:24px;border-radius:16px"><div class="test-card"><p>&ldquo;Light testimonial card, used on About and Training.&rdquo;</p><cite>Name &middot; Role, Organisation</cite></div></div>
+    </div>
+    <h3 class="sg-sub">Small cards</h3>
+    <div class="sg-3col">
+      <div class="topic"><h3>Topic card</h3><p>Training topics on sand.</p></div>
+      <div class="values" style="padding:0;border-radius:12px"><div class="value-card"><h3>Value card</h3><p>About page, on charcoal.</p></div></div>
+      <div class="keys" style="padding:0;border-radius:12px"><div class="key-card"><h3>Key card</h3><p>Services, on charcoal.</p></div></div>
+    </div>
+    <h3 class="sg-sub">Photo fallback (until Andrew's photo is added)</h3>
+    <div style="max-width:360px;margin-top:16px"><AndrewPhoto /></div>
+  </section>
+
+  <section class="sg sg--sand" id="sg-pricing">
+    <h2 class="sg-h">Pricing</h2>
+    <div class="tier-grid" style="margin-top:24px">
+      {tier.map((t) => (
+        <div class:list={['prog-card', { featured: t.featured }]} style={t.featured ? '' : 'background:#fff'}>
+          <div class="duration">{t.unit}</div>
+          <h3>{t.name}</h3>
+          <div class="price">{t.price}<span class="price-vat"> + VAT</span></div>
+          <ul>{t.includes.slice(0, 3).map((i) => <li>{i}</li>)}</ul>
+          <p class="deliverable"><strong>You get:</strong> {t.deliverable}</p>
+          <a class:list={['btn', t.featured ? 'btn-light' : 'btn-primary']} href="#">Book this &rarr;</a>
+        </div>
+      ))}
+    </div>
+    <div class="prog-card featured" style="max-width:560px;margin-top:20px">
+      <div class="duration">Term pricing table</div>
+      <table class="term-table"><tbody>{services.management.terms.map((t) => <tr><th scope="row">{t.term}</th><td>{t.price}<span class="price-vat"> / month + VAT</span></td></tr>)}</tbody></table>
+    </div>
+  </section>
+
+  <h2 class="sg-h sg-pad" id="sg-sections">Sections</h2>
+  <section class="process-strip" aria-label="Process strip example">
+    <ol class="process-inner">
+      {services.process.map((s, i) => <li><span class="step-num">{String(i + 1).padStart(2, '0')}</span><strong>{s.title}</strong><span>{s.text}</span></li>)}
+    </ol>
+  </section>
+  <section class="faq">
+    <div class="faq-inner">
+      <div class="eyebrow">FAQ accordion</div>
+      <div class="faq-list">
+        {services.faq.slice(0, 3).map((f, i) => <details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+    </div>
+  </section>
+  <CtaStrip />
+  <CtaStrip dark title="Dark CTA strip variant" />
+
+  <section class="sg sg--sand" id="sg-forms">
+    <h2 class="sg-h">Forms</h2>
+    <div style="max-width:560px">
+      <div class="form-group"><label for="sg-a">Text input</label><input id="sg-a" placeholder="Full name" /></div>
+      <div class="form-group"><label for="sg-b">Select</label><select id="sg-b"><option>Just exploring</option></select></div>
+      <div class="form-group"><label for="sg-c">Textarea</label><textarea id="sg-c" placeholder="A few lines about your fundraising"></textarea></div>
+      <div class="contact-item"><div class="icon" aria-hidden="true">✉️</div><div class="info"><strong>Contact item</strong><span>digitalparle@gmail.com</span></div></div>
+    </div>
+  </section>
+
+  <section class="sg" id="sg-brand">
+    <h2 class="sg-h">Brand</h2>
+    <div class="sg-row">
+      <a class="logo" href="#"><LogoMark size={48} /><div class="logo-text" style="font-size:18px">SOCIAL <span>for</span> GOOD</div></a>
+      <div class="sg-dark" style="padding:16px 24px;border-radius:12px"><a class="logo" href="#"><LogoMark size={48} /><div class="logo-text" style="font-size:18px;color:#fff">SOCIAL <span>for</span> GOOD</div></a></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sg { padding: 64px 80px; }
+  .sg--sand { background: var(--sand); }
+  .sg > * { max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .sg-pad { padding: 64px 80px 24px; max-width: 1360px; margin: 0 auto; }
+  .sg-h { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--clay-text); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,.1); }
+  .sg-sub { font-size: 15px; font-weight: 700; margin-top: 40px; color: var(--charcoal); }
+  .sg-note { font-size: 14px; color: var(--sage); margin-bottom: 24px; }
+  .sg-toc { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .sg-toc a { color: var(--teal); font-size: 13px; font-weight: 700; text-decoration: none; border: 1px solid rgba(255,255,255,.2); border-radius: 100px; padding: 6px 14px; }
+  .sg-swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .sg-swatch { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--sage); }
+  .sg-swatch strong { color: var(--charcoal); font-size: 15px; }
+  .sg-chip { height: 88px; border-radius: 12px; border: 1px solid rgba(0,0,0,.08); margin-bottom: 8px; }
+  .sg-type { display: flex; flex-direction: column; gap: 28px; }
+  .sg-type code, .sg-swatch code { display: block; font-size: 12px; color: var(--sage); margin-bottom: 8px; }
+  .sg-dark { background: var(--charcoal); padding: 24px; border-radius: 12px; }
+  .hero--home.sg-dark { min-height: 0; display: block; padding: 24px; }
+  .sg-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .sg-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 16px; align-items: start; }
+  .sg-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  code { font-family: ui-monospace, Menlo, monospace; }
+  @media (max-width: 768px) {
+    .sg { padding: 48px 24px; }
+    .sg-pad { padding: 48px 24px 16px; }
+    .sg-swatches { grid-template-columns: 1fr 1fr; }
+    .sg-2col, .sg-3col { grid-template-columns: 1fr; }
+  }
+</style>

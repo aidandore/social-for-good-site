@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+const clients = (await getCollection('clients')).sort((a, b) => a.data.order - b.data.order);
+---
+<section class="logo-bar" aria-label="Organisations we've worked with">
+  <div class="logo-bar-inner">
+    <span class="clients-label">Proud to work with</span>
+    <ul class="logo-list">
+      {clients.map(({ data }) => (
+        <li>{data.logo ? <img src={data.logo} alt={data.name} style={data.logoHeight ? `height:${data.logoHeight}px` : undefined} /> : <span class="wordmark">{data.name}</span>}</li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaStrip from '../../components/CtaStrip.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+const date = data.date.toLocaleDateString('en-IE', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base title={data.title} description={data.summary}>
+  <section class="hero hero--article">
+    <div class="hero-inner">
+      <div class="hero-meta">Insights · {data.tag}</div>
+      <h1>{data.title}</h1>
+      <div class="hero-byline">Andrew Parle · Social for Good · {date}</div>
+    </div>
+  </section>
+  <section class="article-body">
+    <div class="article-inner prose"><Content /></div>
+  </section>
+  <CtaStrip />
+</Base>

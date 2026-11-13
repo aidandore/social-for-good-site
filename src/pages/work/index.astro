@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import CtaStrip from '../../components/CtaStrip.astro';
+import { getCollection } from 'astro:content';
+const work = (await getCollection('work', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Our Work" description="Digital fundraising campaigns and programmes for Irish charities and non-profits.">
+  <section class="hero hero--work">
+    <div class="hero-inner">
+      <div class="eyebrow" style="color: var(--teal)">Our Work</div>
+      <h1>Our work</h1>
+      <p>Campaigns Andrew has planned and run for charities and non-profits.</p>
+    </div>
+  </section>
+  <section class="work-grid-page">
+    <div class="work-inner">
+      {work.map((w) => <WorkCard entry={w} headingTag="h2" />)}
+    </div>
+  </section>
+  <CtaStrip />
+</Base>

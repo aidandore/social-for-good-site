@@ -1,0 +1,60 @@
+# Old WordPress URLs -> new pages (301 = permanent, keeps Google rankings)
+
+# Blog posts moved under /insights/
+/5-ga4-configurations-every-charity-should-make/  /insights/5-ga4-configurations-every-charity-should-make/  301
+/facebook-ad-categories-2025/  /insights/facebook-ad-categories-2025/  301
+/facebook-business-manager/  /insights/facebook-business-manager/  301
+/ga4-consent-mode-v2/  /insights/ga4-consent-mode-v2/  301
+/how-charities-can-plan-their-online-advertising-budget-for-2024/  /insights/how-charities-can-plan-their-online-advertising-budget-for-2024/  301
+/leveraging-facebook-conversion-api-for-charities-and-nonprofits/  /insights/leveraging-facebook-conversion-api-for-charities-and-nonprofits/  301
+/managing-the-google-ads-grant-in-2024/  /insights/managing-the-google-ads-grant-in-2024/  301
+/performance-max-google-ad-grant/  /insights/performance-max-google-ad-grant/  301
+/social-media-for-charities-in-2024/  /insights/social-media-for-charities-in-2024/  301
+/were-seeking-your-feedback-on-facebook-challenges-in-ireland/  /insights/  301
+/what-should-social-media-look-like-for-charities-and-non-profits-in-2025/  /insights/what-should-social-media-look-like-for-charities-and-non-profits-in-2025/  301
+/why-should-a-charity-advertise-online/  /insights/why-should-a-charity-advertise-online/  301
+/digital-marketing-and-fundraising-news-for-charities-non-profits/  /insights/  301
+/category/*  /insights/  301
+/tag/*  /insights/  301
+/author/*  /insights/  301
+/test-blog/  /insights/  301
+
+# Portfolio
+/portfolio/down-syndrome-ireland/  /work/down-syndrome-ireland/  301
+/portfolio/goal-global/  /work/goal-global/  301
+/portfolio/le-cheile-mentoring/  /work/le-cheile/  301
+/portfolio/65-roses-day-2024/  /work/cf-ireland/  301
+/portfolio/family-carers-ireland/  /work/family-carers-ireland/  301
+/portfolio/24-hour-squat-challenge/  /work/epilepsy-ireland/  301
+/portfolio/irish-community-air-ambulance/  /work/critical/  301
+/portfolio/*  /work/  301
+/portfolio_tag/*  /work/  301
+/our-work/  /work/  301
+/showcase/*  /work/  301
+
+# Service pages
+/what-we-do/  /services/  301
+/how/  /services/  301
+/google-ad-grant-management/  /services/#management  301
+/google-ads-for-charities-and-non-profits/  /services/#management  301
+/meta-advertising-for-charities-and-nonprofits/  /services/#management  301
+/ga4-for-charities-and-non-profits/  /services/#tracking  301
+/motion-graphics-and-video/  /services/  301
+/digital-tools/  /services/  301
+
+# Training
+/digital-fundraising-for-charities-and-nonprofits/  /training/  301
+/digital-training-for-charities-and-non-profits/  /training/  301
+/google-analytics-4-beginners-workshop/  /training/  301
+
+# Contact and leftovers
+/say-hello/  /contact/  301
+/say-hello-2/  /contact/  301
+/registration/  /contact/  301
+/home-animation/  /  301
+/home-video-bg/  /  301
+/privacy-policy/  /privacy/  301
+/cookie-policy/  /privacy/  301
+/feed/  /insights/  301
+/wp-admin/*  /  301
+/wp-login.php  /  301

@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaStrip from '../components/CtaStrip.astro';
+import services from '../data/services.json';
+
+const { tracking, campaign, management, process, keys, faq } = services;
+---
+<Base title="Services and prices" description="Conversion tracking, campaign management and monthly Google and Facebook ads management for charities and non-profits. Prices published, accounts kept in your name.">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow" style="color: var(--teal)">Services and prices</div>
+      <h1>Clear prices. Your accounts.</h1>
+      <p>Fix your tracking, run a campaign or hand over your ads month to month. All prices are plus VAT, and ad spend is paid separately to Google or Meta.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/contact/">Book a free call &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-strip" aria-label="How it works">
+    <ol class="process-inner">
+      {process.map((s, i) => (
+        <li><span class="step-num">{String(i + 1).padStart(2, '0')}</span><strong>{s.title}</strong><span>{s.text}</span></li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="health" id="tracking">
+    <div class="health-inner">
+      <div>
+        <div class="eyebrow">Fix · Conversion tracking</div>
+        <h2>{tracking.title}</h2>
+        <p class="section-intro">{tracking.intro}</p>
+      </div>
+      <div class="health-card">
+        <h3>Case in point: {tracking.story.client}</h3>
+        <p class="story-text">{tracking.story.text}</p>
+      </div>
+    </div>
+    <div class="tier-grid">
+      {tracking.tiers.map((t) => (
+        <div class:list={['prog-card', { featured: t.featured }]}>
+          <div class="duration">{t.unit}</div>
+          <h3>{t.name}</h3>
+          <div class="price">{t.price}<span class="price-vat"> + VAT</span></div>
+          <ul>{t.includes.map((i) => <li>{i}</li>)}</ul>
+          <p class="deliverable"><strong>You get:</strong> {t.deliverable}</p>
+          <a class:list={['btn', t.featured ? 'btn-light' : 'btn-primary']} href={`/contact/?interest=tracking-${t.name.toLowerCase()}`}>Book this &rarr;</a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="programmes" id="campaigns">
+    <div class="programmes-inner">
+      <div class="eyebrow">Run · Ads and campaigns</div>
+      <h2>Have Andrew run your ads.</h2>
+      <p class="section-intro">Bring Andrew in for one campaign, or have him manage your ads every month instead of hiring an agency.</p>
+      <div class="run-grid">
+        <div class="prog-card">
+          <div class="duration">{campaign.unit}</div>
+          <h3>{campaign.title}</h3>
+          <div class="subtitle">{campaign.intro}</div>
+          <div class="price">{campaign.price}<span class="price-vat"> + VAT</span></div>
+          <ul>{campaign.includes.map((i) => <li>{i}</li>)}</ul>
+          <p class="deliverable"><strong>You get:</strong> {campaign.deliverable}</p>
+          <a class="btn btn-primary" href="/contact/?interest=campaign">Plan a campaign &rarr;</a>
+        </div>
+        <div class="prog-card featured" id="management">
+          <div class="duration">{management.channels.join(' or ')}</div>
+          <h3>{management.title}</h3>
+          <div class="subtitle">{management.intro}</div>
+          <table class="term-table">
+            <tbody>
+              {management.terms.map((t) => (
+                <tr><th scope="row">{t.term}</th><td>{t.price}<span class="price-vat"> / month + VAT</span></td></tr>
+              ))}
+            </tbody>
+          </table>
+          <ul>{management.includes.map((i) => <li>{i}</li>)}</ul>
+          <p class="deliverable">Per channel. Ad spend is paid directly to Google or Meta.</p>
+          <a class="btn btn-light" href="/contact/?interest=management">Talk about management &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="keys">
+    <div class="keys-inner">
+      <div class="eyebrow" style="color: var(--teal)">You keep the keys</div>
+      <h2>Your accounts. Your data.</h2>
+      <p class="section-intro">Charities get stuck when an agency owns the ad accounts and the analytics. Andrew sets everything up in your name.</p>
+      <div class="keys-grid">
+        {keys.map((k) => (
+          <div class="key-card"><h3>{k.title}</h3><p>{k.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="faq-inner">
+      <div class="eyebrow">Questions</div>
+      <h2 class="section-h2">Common questions</h2>
+      <div class="faq-list">
+        {faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="custom">
+    <div class="eyebrow">Learn</div>
+    <h2 style="margin-top: 12px">Want your team to do it themselves?</h2>
+    <p>Andrew runs hands-on training workshops for charity teams.</p>
+    <div class="actions"><a class="btn btn-ghost-dark" href="/training/">See training &rarr;</a></div>
+  </section>
+
+  <CtaStrip dark />
+</Base>

@@ -1,0 +1,106 @@
+---
+import '../styles/global.css';
+import LogoMark from '../components/LogoMark.astro';
+import Analytics from '../components/Analytics.astro';
+import { getCollection } from 'astro:content';
+import settings from '../data/settings.json';
+
+interface Props {
+  title: string;
+  description?: string;
+  bodyClass?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Digital fundraising for charities, non-profits and purpose-led businesses in Ireland: conversion tracking, Google and Facebook ads, and training from Andrew Parle.',
+  bodyClass,
+  noindex = false,
+} = Astro.props;
+
+// Insights only appears in the nav once there's at least one published post.
+const hasPosts = (await getCollection('posts', ({ data }) => !data.draft)).length > 0;
+
+const links = [
+  { href: '/services/', label: 'Services' },
+  { href: '/training/', label: 'Training' },
+  { href: '/work/', label: 'Work' },
+  { href: '/about/', label: 'About' },
+  ...(hasPosts ? [{ href: '/insights/', label: 'Insights' }] : []),
+  { href: '/contact/', label: 'Contact' },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => path.startsWith(href);
+const fullTitle = path === '/' ? 'Social for Good | Digital for Humanity' : `${title} | Social for Good`;
+const canonical = new URL(path, Astro.site);
+---
+<!doctype html>
+<html lang="en-IE">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body class={bodyClass}>
+    <nav>
+      <a class="logo" href="/" aria-label="Social for Good home">
+        <LogoMark />
+        <div class="logo-text">SOCIAL <span>for</span> GOOD</div>
+      </a>
+      <ul class="nav-links">
+        {links.map((l) => <li><a href={l.href} class:list={{ active: isActive(l.href) }}>{l.label}</a></li>)}
+      </ul>
+      <a class="btn btn-primary" href="/contact/">Book a call &rarr;</a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <a class="logo" href="/">
+          <LogoMark />
+          <div class="logo-text" style="color:#fff">SOCIAL <span>for</span> GOOD</div>
+        </a>
+        <ul class="footer-links">
+          {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          {settings.linkedin && <li><a href={settings.linkedin} rel="noopener">LinkedIn</a></li>}
+        </ul>
+        <span class="footer-copy">
+          <a href={`mailto:${settings.email}`}>{settings.email}</a> &middot; &copy; {new Date().getFullYear()} Social for Good
+          &middot; <a href="/privacy/">Privacy</a>
+          {settings.gaId && <> &middot; <a href="#" data-cookie-settings>Cookie settings</a></>}
+        </span>
+      </div>
+    </footer>
+
+    <Analytics />
+
+    <script>
+      const toggle = document.querySelector('.nav-toggle');
+      toggle?.addEventListener('click', () => {
+        const open = document.body.classList.toggle('nav-open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+      document.querySelectorAll('.nav-links a').forEach((a) =>
+        a.addEventListener('click', () => document.body.classList.remove('nav-open'))
+      );
+    </script>
+  </body>
+</html>

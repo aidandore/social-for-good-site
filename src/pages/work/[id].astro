@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaStrip from '../../components/CtaStrip.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const work = await getCollection('work', ({ data }) => !data.draft);
+  return work.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+// Reuse the quote author's headshot from their testimonial (matched on the name before "·").
+const quoteName = data.quoteBy?.split('·')[0].trim();
+const quotePhoto = quoteName
+  ? (await getCollection('testimonials')).find((t) => t.data.name === quoteName)?.data.photo
+  : undefined;
+---
+<Base title={`${data.client}: ${data.title}`} description={data.summary}>
+  <section class="hero hero--case">
+    <div class="hero-inner">
+      <div class="eyebrow" style="color: var(--teal)">Case Study · {data.tag}</div>
+      <h1>{data.title}<br />for {data.client}.</h1>
+      <p>{data.summary}</p>
+      {data.image && <img class="hero-image case-hero-img" src={data.image} alt={data.imageAlt ?? ''} />}
+    </div>
+  </section>
+  {data.stats.length > 0 && (
+    <section class="stats-bar">
+      <div class="stats-inner">
+        {data.stats.map((s) => <div class="stat"><strong>{s.value}</strong><span>{s.label}</span></div>)}
+      </div>
+    </section>
+  )}
+  <section class="content">
+    <div class="content-inner prose">
+      <Content />
+      {data.quote && (
+        <blockquote class="blockquote">
+          <p>&ldquo;{data.quote}&rdquo;</p>
+          {data.quoteBy && (
+            <cite class:list={{ 'has-photo': !!quotePhoto }}>
+              {quotePhoto && <img class="avatar" src={quotePhoto} alt="" width="56" height="56" loading="lazy" />}
+              <span>{data.quoteBy}</span>
+            </cite>
+          )}
+        </blockquote>
+      )}
+      {data.gallery.length > 0 && (
+        <section class="gallery" aria-label="Campaign creative">
+          <h2>Campaign creative</h2>
+          <div class:list={['gallery-grid', `gallery-grid--${Math.min(data.gallery.length, 3)}`]}>
+            {data.gallery.map((g) => <img src={g.src} alt={g.alt} loading="lazy" />)}
+          </div>
+        </section>
+      )}
+      <p><a href="/work/">&larr; All work</a></p>
+    </div>
+  </section>
+  <CtaStrip />
+</Base>

@@ -1,0 +1,17 @@
+---
+// Shows Andrew's photo if one is set in settings.json ("photo"), otherwise a branded quote block.
+import settings from '../data/settings.json';
+const {
+  quote = '“When you work with Andrew you feel like he is part of your team, he has your back.”',
+  cite = 'John Ryan Mc Laughlin, formerly Head of Fundraising, Down Syndrome Ireland',
+} = Astro.props;
+const photo = settings.photo;
+---
+{photo ? (
+  <img class="photo" src={photo} alt="Andrew Parle, founder of Social for Good" />
+) : (
+  <div class="photo-fallback">
+    <blockquote>{quote}</blockquote>
+    <cite>{cite}</cite>
+  </div>
+)}

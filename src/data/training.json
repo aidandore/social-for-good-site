@@ -1,0 +1,24 @@
+{
+  "intro": "Half-day, hands-on workshops for charity and non-profit teams, run face to face for groups of around 15.",
+  "credentials": [
+    "Lecturer in Digital Fundraising at Charities Institute Ireland (Certificate and Diploma)",
+    "On Carmichael's panel of trainers since 2023",
+    "Lecturer on the ICM Diploma at National College of Ireland, 2018 to 2020"
+  ],
+  "topics": [
+    { "title": "Facebook Ads", "text": "Setting up, targeting and improving Meta campaigns that raise money." },
+    { "title": "Google Ads", "text": "Paid search and the Google Ad Grant, set up so they bring in supporters." },
+    { "title": "Google Analytics", "text": "GA4 and conversion tracking, so you can trust your numbers." },
+    { "title": "Digital fundraising and acquisition", "text": "How to find new supporters online and turn them into donors." }
+  ],
+  "formats": [
+    "Half-day workshops",
+    "Face to face",
+    "Groups of around 15",
+    "Price on request"
+  ],
+  "partners": [
+    { "name": "Carmichael", "url": "https://www.carmichaelireland.ie/" },
+    { "name": "Charities Institute Ireland", "url": "https://charitiesinstitute.ie/" }
+  ]
+}

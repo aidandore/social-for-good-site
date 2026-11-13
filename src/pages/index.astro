@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import LogoBar from '../components/LogoBar.astro';
+import AndrewPhoto from '../components/AndrewPhoto.astro';
+import WorkCard from '../components/WorkCard.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CtaStrip from '../components/CtaStrip.astro';
+import { getCollection } from 'astro:content';
+
+const published = (await getCollection('work', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+const work = published.slice(0, 2);
+// Hero shows the first case study with 3 stats as proof.
+const proof = published.find((w) => w.data.stats.length >= 3);
+---
+<Base title="Home">
+  <section class="hero hero--home">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow" style="color: var(--teal)">Digital for Humanity</div>
+        <h1>Good causes deserve <span>great digital.</span><br />We make that happen.</h1>
+        <p class="hero-sub">
+          Social for Good is a digital fundraising partner for charities, non-profits, social enterprises
+          and purpose-led businesses. We help you recruit more leads, build lasting relationships, raise
+          more money and plan your digital strategy.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/contact/">Book a free call &rarr;</a>
+          <a class="btn btn-ghost" href="/services/">See prices</a>
+        </div>
+        <p class="hero-note">30 minutes. No hard sell. Just a conversation about your goals.</p>
+      </div>
+      {proof && (
+        <a class="hero-proof" href={`/work/${proof.id}/`}>
+          <span class="tag">{proof.data.tag}</span>
+          <div class="hero-proof-stats">
+            {proof.data.stats.slice(0, 3).map((s) => (
+              <div><strong>{s.value}</strong><span>{s.label}</span></div>
+            ))}
+          </div>
+          <p>{proof.data.title} &middot; {proof.data.client}</p>
+          <span class="door-link">Read the case study &rarr;</span>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <LogoBar />
+
+  <section class="about-strip">
+    <div class="about-inner">
+      <AndrewPhoto />
+      <div class="about-content">
+        <div class="eyebrow">About</div>
+        <h2>When you work with us, you work directly with Andrew.</h2>
+        <p>No account managers and no hand-offs. You deal with an experienced digital fundraising specialist from start to finish.</p>
+        <p>
+          Andrew has spent more than a decade helping charities, non-profits and commercially responsible
+          businesses raise more money and find new supporters.
+        </p>
+        <div style="margin-top: 28px">
+          <a class="btn btn-ghost-dark" href="/about/">About Andrew &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="doors">
+    <div class="doors-inner">
+      <div class="eyebrow">How we help</div>
+      <h2>Fix it. Run it. Learn it.</h2>
+      <p class="section-intro">Start with whichever one you need.</p>
+      <div class="door-grid">
+        <a class="door" href="/services/#tracking">
+          <span class="door-label">Fix · from €650</span>
+          <h3>Conversion tracking</h3>
+          <p>Andrew sorts out your Google Analytics, Tag Manager and ad tracking so you can see which campaigns raise money.</p>
+          <span class="door-link">See tracking &rarr;</span>
+        </a>
+        <a class="door featured" href="/services/#campaigns">
+          <span class="door-label">Run · from €525 a month</span>
+          <h3>Ads and campaigns</h3>
+          <p>Google and Facebook ads managed for you, one campaign at a time or every month. All accounts stay in your name.</p>
+          <span class="door-link">See prices &rarr;</span>
+        </a>
+        <a class="door" href="/training/">
+          <span class="door-label">Learn</span>
+          <h3>Training</h3>
+          <p>Half-day, hands-on workshops for your team, from a lecturer at Charities Institute Ireland.</p>
+          <span class="door-link">See training &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {work.length > 0 && (
+    <section class="work-preview">
+      <div class="work-preview-inner">
+        <div class="eyebrow">Our work</div>
+        <h2>Recent work</h2>
+        <div class="work-grid">
+          {work.map((w) => <WorkCard entry={w} />)}
+        </div>
+        <div class="mt-32 center">
+          <a class="btn btn-ghost-dark" href="/work/">See all work &rarr;</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <Testimonials featuredOnly title="What clients say" eyebrow="Testimonials" />
+
+  <CtaStrip />
+</Base>
